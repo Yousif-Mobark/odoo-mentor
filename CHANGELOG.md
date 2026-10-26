@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0 — 2026-10-26
+
+- Playwright harness rewritten as persistent daemon + client:
+  - `serve` keeps one Chromium instance alive, listens on `~/.odoo_rpc/pw.sock`.
+  - `send '<json>'` sends one command, prints JSON response — no browser relaunch.
+  - `status` / `stop` for lifecycle management.
+  - Authentication via `/web/session/authenticate` + cookie injection — no UI login form.
+  - Human-like pacing: `--slow-mo 150` by default, scroll-into-view + hover before every click.
+  - Command vocabulary: `goto`, `wait`, `html`, `outer`, `text`, `attrs`, `click`, `click_label`, `fill`, `type`, `press`, `eval`, `url`, `title`, `screenshot`, `back`, `forward`, `reload`, `cookies`, `stop`.
+  - One-shot `screenshot` kept for compatibility.
+- SKILL.md adds **Step 5 — Auto-suggest a UI test after each task**. Every mutating task ends with a pre-filled AskUserQuestion offering to verify in the real UI.
+
 ## 0.3.0 — 2026-10-26
 
 - Canonical home moved to `/opt/odoo-mentor/`. Every platform adapter now points back to this directory — one source of truth.

@@ -61,6 +61,33 @@ This is the "always analyze DB technical objects for issue investigation" rule. 
 
 Load `references/prompt-layer.md` for the full question tree.
 
+### Step 5 — Auto-suggest a UI test after each task
+
+**Every time a task finishes** (data write, button press, mass update, cancel/validate/post, config change, module upgrade — anything that could change what the user sees in the UI), **proactively suggest a UI verification** before the user has to ask. Pattern:
+
+```
+Done. Verify in the UI? (bluehills prod)
+  - open /odoo/<model>/<id> and read current state + visible buttons
+  - run form-audit to compare rendered fields vs server view spec
+  - screenshot (RTL / ar_001) if layout risk
+```
+
+Use **AskUserQuestion** with concrete options. Pre-fill the URL and the specific checks that match the just-finished task. Example after clearing `analytic_distribution`:
+
+> **Verify in UI?**
+> 1. Open payslip 767 — confirm state, no analytic warnings, visible buttons (recommended)
+> 2. Open draft move 17678 — confirm balanced, click Post
+> 3. Skip verification
+
+Rules:
+- Suggest **once** per task, right at the end. Not after every intermediate step.
+- Only suggest when there's something visible to verify. A pure read-only investigation needs no UI check.
+- If Playwright isn't ready (`doctor` reported `no_playwright`), the suggestion still shows but names the install step as prerequisite.
+- Daemon reuse: if `odoo_playwright.py status` says running, suggest reusing the open session (just `send {"op":"goto",...}`), don't propose a fresh browser.
+- One-line summary first, then the question. Not a wall of text.
+
+The user explicitly asked for this behavior — "automatically suggest UI test when task executed". Honor it as a reflex, not a case-by-case decision.
+
 ## Setup — once per environment
 
 ```
