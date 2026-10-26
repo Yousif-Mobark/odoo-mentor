@@ -1,4 +1,4 @@
-# odoo-rpc — Claude Code skill
+# odoo-mentor — Claude Code skill
 
 An investigation and automation skill for working with a live Odoo instance (v13+) from the terminal. Pairs a batteries-included XML-RPC CLI with a Playwright UI harness so Claude (and you) can:
 
@@ -14,21 +14,21 @@ Built against Odoo 13 → 19 (community & enterprise), tested on Odoo 19 SaaS.
 ## Install — one command, all AI assistants
 
 ```bash
-sudo cp -r /path/to/odoo-rpc /opt/odoo-rpc
-bash /opt/odoo-rpc/install.sh
+sudo cp -r /path/to/odoo-mentor /opt/odoo-mentor
+bash /opt/odoo-mentor/install.sh
 ```
 
 The installer:
-1. Symlinks `/opt/odoo_rpc.py` → `/opt/odoo-rpc/bin/odoo_rpc.py`.
-2. Detects installed AI assistants (Claude Code, OpenCode, Cursor, GitHub Copilot, Aider, Cline) and wires the skill into each one. All installations point back to `/opt/odoo-rpc/` — one source of truth.
+1. Symlinks `/opt/odoo_rpc.py` → `/opt/odoo-mentor/bin/odoo_rpc.py`.
+2. Detects installed AI assistants (Claude Code, OpenCode, Cursor, GitHub Copilot, Aider, Cline) and wires the skill into each one. All installations point back to `/opt/odoo-mentor/` — one source of truth.
 3. Installs Playwright + Chromium into `~/.odoo_rpc/venv` (skip with `--no-playwright`).
 
 Options:
 ```bash
-bash /opt/odoo-rpc/install.sh                           # auto-detect everything
-bash /opt/odoo-rpc/install.sh --platform claude-code,cursor
-bash /opt/odoo-rpc/install.sh --no-playwright
-bash /opt/odoo-rpc/install.sh --uninstall               # removes all adapters
+bash /opt/odoo-mentor/install.sh                           # auto-detect everything
+bash /opt/odoo-mentor/install.sh --platform claude-code,cursor
+bash /opt/odoo-mentor/install.sh --no-playwright
+bash /opt/odoo-mentor/install.sh --uninstall               # removes all adapters
 ```
 
 Verify:
@@ -56,7 +56,7 @@ python3 /opt/odoo_rpc.py --pretty db-list https://host.odoo.com
 ## What's inside
 
 ```
-odoo-rpc/
+odoo-mentor/
 ├── SKILL.md                              # Skill prime directive (loaded on trigger)
 ├── README.md                             # This file
 ├── CHANGELOG.md

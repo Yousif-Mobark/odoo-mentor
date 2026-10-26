@@ -2,19 +2,19 @@
 
 The RPC layer tests what the server returns. Playwright tests what the user sees. Use it when the symptom hinges on the browser: client-side wizards, RTL rendering, modal popups, kanban drags, chatter widgets, PDF viewers.
 
-The harness is at `/home/hp/.claude/skills/odoo-rpc/scripts/odoo_playwright.py`. It reads the same alias config as `/opt/odoo_rpc.py`.
+The harness is at `/home/hp/.claude/skills/odoo-mentor/scripts/odoo_playwright.py`. It reads the same alias config as `/opt/odoo_rpc.py`.
 
 ## One-time install
 
 ```
-bash /home/hp/.claude/skills/odoo-rpc/scripts/install_playwright.sh
+bash /home/hp/.claude/skills/odoo-mentor/scripts/install_playwright.sh
 ```
 
 This creates a venv at `~/.odoo_rpc/venv`, installs playwright + Chromium. Idempotent — safe to rerun.
 
 To run the harness afterwards:
 ```
-~/.odoo_rpc/venv/bin/python /home/hp/.claude/skills/odoo-rpc/scripts/odoo_playwright.py --help
+~/.odoo_rpc/venv/bin/python /home/hp/.claude/skills/odoo-mentor/scripts/odoo_playwright.py --help
 ```
 
 (Or `source ~/.odoo_rpc/venv/bin/activate` then call `python …` directly.)

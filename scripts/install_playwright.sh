@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-shot Playwright setup for the odoo-rpc skill.
+# One-shot Playwright setup for the odoo-mentor skill.
 # Safe to re-run — idempotent.
 
 set -euo pipefail
@@ -23,4 +23,4 @@ echo "==> Done. Activate with:"
 echo "    source $VENV/bin/activate"
 echo
 echo "Or run the harness via:"
-echo "    $VENV/bin/python /home/hp/.claude/skills/odoo-rpc/scripts/odoo_playwright.py --help"
+echo "    $VENV/bin/python /home/hp/.claude/skills/odoo-mentor/scripts/odoo_playwright.py --help"

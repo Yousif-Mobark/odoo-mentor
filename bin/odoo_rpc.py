@@ -789,18 +789,18 @@ def cmd_doctor(args):
             else:
                 out["issues"].append({"id": "playwright_broken", "severity": "warning",
                                       "message": "Playwright venv exists but import fails.",
-                                      "fix": "bash /opt/odoo-rpc/scripts/install_playwright.sh"})
+                                      "fix": "bash /opt/odoo-mentor/scripts/install_playwright.sh"})
         except Exception as e:
             out["issues"].append({"id": "playwright_check_failed", "severity": "warning",
                                   "message": f"Playwright check failed: {e}",
-                                  "fix": "bash /opt/odoo-rpc/scripts/install_playwright.sh"})
+                                  "fix": "bash /opt/odoo-mentor/scripts/install_playwright.sh"})
     else:
         out["issues"].append({"id": "no_playwright", "severity": "info",
                               "message": "Playwright not installed. UI tests unavailable.",
-                              "fix": "bash /opt/odoo-rpc/scripts/install_playwright.sh"})
+                              "fix": "bash /opt/odoo-mentor/scripts/install_playwright.sh"})
 
     # Skill content location
-    for loc in ("/opt/odoo-rpc", str(Path.home() / ".claude/skills/odoo-rpc")):
+    for loc in ("/opt/odoo-mentor", str(Path.home() / ".claude/skills/odoo-mentor")):
         if Path(loc).is_dir():
             out["info"].setdefault("skill_locations", []).append(loc)
 

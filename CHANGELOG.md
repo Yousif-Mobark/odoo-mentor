@@ -2,7 +2,7 @@
 
 ## 0.3.0 — 2026-10-26
 
-- Canonical home moved to `/opt/odoo-rpc/`. Every platform adapter now points back to this directory — one source of truth.
+- Canonical home moved to `/opt/odoo-mentor/`. Every platform adapter now points back to this directory — one source of truth.
 - `install.sh` — one-command multi-platform installer with auto-detection and `--uninstall`. Supported targets: Claude Code, OpenCode, Cursor, GitHub Copilot (VS Code), Aider, Cline, plus a generic `~/.ai-skills/` catch-all.
 - New CLI `doctor` command — environment status check (aliases, Playwright presence, Chromium path, skill locations). Returns JSON with `issues` for interactive handling.
 - SKILL.md rewritten as an **interactive** prime directive: run `doctor` first every session, use AskUserQuestion for missing config/Playwright/ambiguity, reflect in Odoo terms, inspect technical objects before writing.

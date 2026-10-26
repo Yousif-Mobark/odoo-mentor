@@ -1,5 +1,5 @@
 ---
-name: odoo-rpc
+name: odoo-mentor
 description: Investigate, configure, and UI-test a remote Odoo instance (v13+) from the shell. XML-RPC CLI plus Playwright harness. Use whenever the user wants to query/update data on a live Odoo server, debug a configuration or data corruption, trace why a record changed, test a form or button in the real UI, predict a layout break from view arch, or help a functional implementer walk a flow. Trigger phrases include "remote odoo", "live server", "prod", "staging", "xmlrpc", "fetch from odoo", "check field X on server", "run method on odoo", "test the UI on", "press button on", "load the form view", "simulate onchange", "ui test", "backend test", "why did this record change", "trace this record", "investigate record", "regenerate journal entry", "post payslip", "upgrade module", "see what changed on prod", "playwright test odoo".
 ---
 
@@ -27,7 +27,7 @@ Output is JSON with `ok`, `issues`, `info`. For each issue, decide what to ask t
 |--|--|
 | `no_config` / `no_aliases` | Ask: "Do you have an Odoo server to connect to? If yes, I need URL, email, password (and DB name — I can discover it from the URL). " Then run `config add`. |
 | `default_unreachable` | Ask: "Default alias failed to auth — password changed? Want to re-add it?" |
-| `no_playwright` | Only matters if the user asked for a UI test / screenshot / click. If they did, ask: "UI tests need Playwright + Chromium (~200 MB), one-time install. Install now? Y/N" — on yes run `bash /opt/odoo-rpc/scripts/install_playwright.sh`. |
+| `no_playwright` | Only matters if the user asked for a UI test / screenshot / click. If they did, ask: "UI tests need Playwright + Chromium (~200 MB), one-time install. Install now? Y/N" — on yes run `bash /opt/odoo-mentor/scripts/install_playwright.sh`. |
 | `no_chromium` | Silently run `~/.odoo_rpc/venv/bin/playwright install chromium`. |
 | `playwright_broken` | Ask: "Playwright is broken — re-run installer? Y/N" |
 
@@ -82,7 +82,7 @@ Config management: `config list`, `config rm <alias>`, `config set-default <alia
 
 Playwright setup (first UI-test run only):
 ```
-bash /home/hp/.claude/skills/odoo-rpc/scripts/install_playwright.sh
+bash /home/hp/.claude/skills/odoo-mentor/scripts/install_playwright.sh
 ```
 
 ## Command map

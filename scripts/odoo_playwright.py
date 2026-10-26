@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Playwright harness for the odoo-rpc skill.
+"""Playwright harness for the odoo-mentor skill.
 
 Reads the same ~/.odoo_rpc/config.json aliases as odoo_rpc.py, logs in via the
 web client, and exposes a few primitives for UI tests: open a record, take a

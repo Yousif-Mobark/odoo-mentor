@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
-# Universal installer for the odoo-rpc skill.
+# Universal installer for the odoo-mentor skill.
 #
-# Canonical source lives at /opt/odoo-rpc/. This script:
-#   1. Symlinks /opt/odoo_rpc.py -> /opt/odoo-rpc/bin/odoo_rpc.py
+# Canonical source lives at /opt/odoo-mentor/. This script:
+#   1. Symlinks /opt/odoo_rpc.py -> /opt/odoo-mentor/bin/odoo_rpc.py
 #   2. Wires the skill into every detected AI assistant on this box.
 #   3. (Optional) installs Playwright + Chromium into ~/.odoo_rpc/venv.
 #
 # Usage:
-#   bash /opt/odoo-rpc/install.sh                  # detect & install everywhere
-#   bash /opt/odoo-rpc/install.sh --platform claude-code,cursor
-#   bash /opt/odoo-rpc/install.sh --no-playwright
-#   bash /opt/odoo-rpc/install.sh --uninstall
+#   bash /opt/odoo-mentor/install.sh                  # detect & install everywhere
+#   bash /opt/odoo-mentor/install.sh --platform claude-code,cursor
+#   bash /opt/odoo-mentor/install.sh --no-playwright
+#   bash /opt/odoo-mentor/install.sh --uninstall
 #
 # Safe to re-run — idempotent symlinks.
 
 set -euo pipefail
 
-SRC="/opt/odoo-rpc"
+SRC="/opt/odoo-mentor"
 PLATFORMS=""
 INSTALL_PW=1
 UNINSTALL=0
@@ -59,7 +59,7 @@ fi
 # Each platform block is self-contained. Set up on install, remove on uninstall.
 
 wire_claude_code() {
-    local dest="$HOME/.claude/skills/odoo-rpc"
+    local dest="$HOME/.claude/skills/odoo-mentor"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -L "$dest" ]] && { rm "$dest"; log "claude-code: removed $dest"; }
         [[ -d "$dest" && ! -L "$dest" ]] && warn "claude-code: $dest is a real dir, not touching"
@@ -78,7 +78,7 @@ wire_opencode() {
     # OpenCode (sst/opencode) looks for commands in ~/.config/opencode/command and
     # agents/skills in ~/.config/opencode/agent. We expose a slash command.
     local dir="$HOME/.config/opencode/command"
-    local cmd="$dir/odoo-rpc.md"
+    local cmd="$dir/odoo-mentor.md"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -L "$cmd" || -f "$cmd" ]] && { rm "$cmd"; log "opencode: removed $cmd"; }
         return
@@ -97,7 +97,7 @@ EOF
 }
 
 wire_cursor() {
-    local dest="$HOME/.cursor/rules/odoo-rpc.mdc"
+    local dest="$HOME/.cursor/rules/odoo-mentor.mdc"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -f "$dest" || -L "$dest" ]] && { rm "$dest"; log "cursor: removed $dest"; }
         return
@@ -110,7 +110,7 @@ globs: []
 alwaysApply: false
 ---
 
-The user has the odoo-rpc skill at \`$SRC\`. When this rule triggers:
+The user has the odoo-mentor skill at \`$SRC\`. When this rule triggers:
 
 1. Read \`$SRC/SKILL.md\` for the prime directive and command map.
 2. Load \`$SRC/references/*.md\` on demand per that file's table.
@@ -124,8 +124,8 @@ wire_copilot() {
     # VS Code / GitHub Copilot: user-level custom instructions file.
     local dir="$HOME/.config/github-copilot"
     local f="$dir/custom-instructions.md"
-    local marker_begin="<!-- odoo-rpc:begin -->"
-    local marker_end="<!-- odoo-rpc:end -->"
+    local marker_begin="<!-- odoo-mentor:begin -->"
+    local marker_end="<!-- odoo-mentor:end -->"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -f "$f" ]] || return
         # Strip our block
@@ -146,7 +146,7 @@ PY
         cat >> "$f" <<EOF
 
 $marker_begin
-# odoo-rpc skill
+# odoo-mentor skill
 
 When the user asks about a live Odoo instance (prod, staging, xmlrpc, trace a record,
 ui test, press a button, upgrade a module, inspect a view), read the skill at
@@ -163,13 +163,13 @@ EOF
 
 wire_aider() {
     local f="$HOME/.aider.conf.yml"
-    local inst="$HOME/.aider.odoo-rpc.md"
+    local inst="$HOME/.aider.odoo-mentor.md"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -f "$inst" ]] && { rm "$inst"; log "aider: removed $inst"; }
         return
     fi
     cat > "$inst" <<EOF
-# odoo-rpc skill (aider auto-loaded via read-file)
+# odoo-mentor skill (aider auto-loaded via read-file)
 When the user asks about a live Odoo instance, consult $SRC/SKILL.md.
 CLI: /opt/odoo_rpc.py.  Run \`/opt/odoo_rpc.py doctor\` first.
 EOF
@@ -182,26 +182,26 @@ wire_cline() {
     local dirs=("$HOME/Documents/Cline/Rules" "$HOME/.config/cline/rules")
     if [[ $UNINSTALL -eq 1 ]]; then
         for d in "${dirs[@]}"; do
-            [[ -f "$d/odoo-rpc.md" ]] && { rm "$d/odoo-rpc.md"; log "cline: removed $d/odoo-rpc.md"; }
+            [[ -f "$d/odoo-mentor.md" ]] && { rm "$d/odoo-mentor.md"; log "cline: removed $d/odoo-mentor.md"; }
         done
         return
     fi
     for d in "${dirs[@]}"; do
         mkdir -p "$d"
-        cat > "$d/odoo-rpc.md" <<EOF
-# odoo-rpc
+        cat > "$d/odoo-mentor.md" <<EOF
+# odoo-mentor
 Investigate and automate a live Odoo instance. Skill content lives at $SRC/.
 Read $SRC/SKILL.md when the user mentions Odoo, prod, staging, xmlrpc, trace a record,
 ui test, press a button, upgrade a module, or inspect a view.
 Run \`/opt/odoo_rpc.py doctor\` first.
 EOF
-        log "cline: wrote $d/odoo-rpc.md"
+        log "cline: wrote $d/odoo-mentor.md"
     done
 }
 
 wire_generic() {
-    # Catch-all: $HOME/.ai-skills/odoo-rpc
-    local dest="$HOME/.ai-skills/odoo-rpc"
+    # Catch-all: $HOME/.ai-skills/odoo-mentor
+    local dest="$HOME/.ai-skills/odoo-mentor"
     if [[ $UNINSTALL -eq 1 ]]; then
         [[ -L "$dest" ]] && { rm "$dest"; log "generic: removed $dest"; }
         return
