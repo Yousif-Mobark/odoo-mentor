@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+*.swp
+.DS_Store
+
+# Secrets / local state (never commit)
+.odoo_rpc/
+config.json
+*.pre.json
+*.pre_*.json
+snapshots/
+
+# Scratch
+*.bak.*
+*.tmp
